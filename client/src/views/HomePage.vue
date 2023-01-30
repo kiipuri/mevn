@@ -13,28 +13,27 @@
 </template>
 
 <script>
-import NewPost from "../components/NewPost.vue";
-import Post from "../components/Post.vue";
-import axios from "axios";
+import NewPost from "../components/NewPost.vue"
+import Post from "../components/Post.vue"
+import axios from "axios"
 
 export default {
-  name: "home",
+  name: "home-page",
   components: { NewPost, Post },
-  data() {
+  data () {
     return {
-      posts: [],
-    };
+      posts: []
+    }
   },
-  mounted() {
-    this.getAllPosts();
+  mounted () {
+    this.getAllPosts()
   },
   methods: {
-    getAllPosts() {
+    getAllPosts () {
       axios.get("http://localhost:9000/api/get-all-posts/").then((res) => {
-        this.posts = res.data;
-      });
-      console.log("asdf");
-    },
-  },
-};
+        this.posts = res.data
+      })
+    }
+  }
+}
 </script>

@@ -7,20 +7,20 @@
 
 <script>
 export default {
-  name: "Logged",
-  data() {
-    return {};
+  name: "LoggedIn",
+  data () {
+    return {}
   },
-  beforeCreate() {
+  beforeCreate () {
     if (!this.$session.exists()) {
-      this.$router.push("/");
+      this.$router.push("/")
     }
   },
   methods: {
-    logout() {
-      this.$session.destroy();
-      this.$router.push("/");
-    },
-  },
-};
+    logout () {
+      this.$session.destroy()
+      this.$router.push("/")
+    }
+  }
+}
 </script>

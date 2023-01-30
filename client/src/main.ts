@@ -1,14 +1,14 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
+import { createApp } from "vue"
+import App from "./App.vue"
+import router from "./router"
 import Vue3Storage from "vue3-storage"
 import "@mdi/font/css/materialdesignicons.css"
-import 'vuetify/styles'
-import { createVuetify } from 'vuetify'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
+import "vuetify/styles"
+import { createVuetify } from "vuetify"
+import * as components from "vuetify/components"
+import * as directives from "vuetify/directives"
 import { aliases, mdi } from "vuetify/iconsets/mdi"
-import Post from "@/components/Post.vue"
+import Post from "./components/Post.vue"
 
 const vuetify = createVuetify({
   components,
@@ -17,11 +17,10 @@ const vuetify = createVuetify({
     defaultSet: "mdi",
     aliases,
     sets: {
-      mdi
-    }
-  }
+      mdi,
+    },
+  },
 })
-
 
 // import './assets/main.css'
 
@@ -32,4 +31,4 @@ app.use(Vue3Storage)
 app.use(vuetify)
 app.component("Post", Post)
 
-app.mount('#app')
+app.mount("#app")

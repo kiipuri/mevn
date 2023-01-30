@@ -28,9 +28,9 @@
       :class="{ 'is-invalid': passwordsNotMatching }"
     />
     <div class="input-group mt-2">
-      <label for="image" class="input-group-text">Select profile picture</label>
       <v-file-input
         id="image"
+        label="Select profile picture"
         @change="savePicture"
       />
     </div>
@@ -39,69 +39,69 @@
 </template>
 
 <script>
-import axios from "axios";
-import Buffer from "buffer";
+import axios from "axios"
+import Buffer from "buffer"
 
 export default {
-  data() {
+  data () {
     return {
       user: {},
       password2: "",
-      passwordsNotMatching: false,
-    };
+      passwordsNotMatching: false
+    }
   },
-  beforeMount() {
+  beforeMount () {
     axios
       .get(`http://localhost:9000/api/get-user/${this.$storage.getStorageSync("userid")}`)
       .then((res) => {
-        this.user = res.data;
-        let buf = Buffer.from(res.data.image.data);
-        this.user.image = "data:image/png;base64," + buf.toString("base64");
+        this.user = res.data
+        const buf = Buffer.from(res.data.image.data)
+        this.user.image = "data:image/png;base64," + buf.toString("base64")
       })
-      .catch((err) => {
-        console.log("no image");
-      });
+      .catch((_) => {
+        console.log("no image")
+      })
   },
-  updated() {
-    this.resize();
+  updated () {
+    this.resize()
   },
   methods: {
-    saveAccount() {
+    saveAccount () {
       if (this.user.password !== this.password2) {
-        this.passwordsNotMatching = true;
-        return;
+        this.passwordsNotMatching = true
+        return
       }
 
       axios
-        .post(`http://localhost:9000/api/save-account/`, this.user)
+        .post("http://localhost:9000/api/save-account/", this.user)
         .then(() => {
-          this.$router.push(`/users/${this.$storage.getStorageSync("userid")}`);
+          this.$router.push(`/users/${this.$storage.getStorageSync("userid")}`)
         })
         .catch((err) => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     },
-    resize() {
-      this.$refs.textarea.style.height = "auto";
+    resize () {
+      this.$refs.textarea.style.height = "auto"
       this.$refs.textarea.style.height =
-        this.$refs.textarea.scrollHeight + "px";
+        this.$refs.textarea.scrollHeight + "px"
     },
-    savePicture(e) {
-      let files = e.target.files;
-      this.createPicture(files[0]);
+    savePicture (e) {
+      const files = e.target.files
+      this.createPicture(files[0])
     },
-    createPicture(file) {
-      let reader = new FileReader();
-      let vm = this.user;
+    createPicture (file) {
+      const reader = new FileReader()
+      const vm = this.user
 
       reader.onload = (e) => {
-        let base64str = e.target.result.split(",")[1];
-        vm.image = base64str;
-      };
-      reader.readAsDataURL(file);
-    },
-  },
-};
+        const base64str = e.target.result.split(",")[1]
+        vm.image = base64str
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+}
 </script>
 
 <style scoped>

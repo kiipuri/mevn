@@ -1,22 +1,21 @@
 <template>
   <div id="container">
-    <Bar />
+    <TopBar />
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Bar from "./components/Bar.vue";
+import TopBar from "./components/TopBar.vue"
 
 export default {
   name: "App",
-  components: { Bar },
-  created() {
-    document.title = "My Cool Website";
-    this.$storage.setStorageSync("test-key", "testdata");
-    console.log(this.$storage.getStorageSync("test-key"));
-  },
-};
+  components: { TopBar },
+  created () {
+    document.title = "My Cool Website"
+    this.$storage.setStorageSync("test-key", "testdata")
+  }
+}
 </script>
 
 <style>

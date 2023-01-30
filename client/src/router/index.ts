@@ -1,50 +1,50 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from "../views/Home.vue"
-import Login from "../components/LoginForm.vue";
-import SignUp from "../components/SignupForm.vue";
-import Logged from "../components/Logged.vue";
-import Profile from "../views/Profile.vue";
-import Logout from "../views/Logout.vue";
-import EditAccount from "../views/EditAccount.vue";
+import { createRouter, createWebHistory } from "vue-router"
+import Home from "../views/HomePage.vue"
+import Login from "../components/LoginForm.vue"
+import SignUp from "../components/SignupForm.vue"
+import LoggedIn from "../components/LoggedIn.vue"
+import Profile from "../views/ProfilePage.vue"
+import Logout from "../views/LogoutPage.vue"
+import EditAccount from "../views/EditAccountPage.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'home',
+      path: "/",
+      name: "home",
       component: Home
     },
     {
       path: "/login",
       name: "login",
-      component: Login,
+      component: Login
     },
     {
       path: "/signup",
       name: "signup",
-      component: SignUp,
+      component: SignUp
     },
     {
       path: "/logged",
       name: "logged",
-      component: Logged,
+      component: LoggedIn
     },
     {
       path: "/users/:id",
       name: "profile",
-      component: Profile,
+      component: Profile
     },
     {
       path: "/logout",
       name: "logout",
-      component: Logout,
+      component: Logout
     },
     {
       path: "/editaccount",
       name: "editaccount",
-      component: EditAccount,
-    },
+      component: EditAccount
+    }
   ]
 })
 

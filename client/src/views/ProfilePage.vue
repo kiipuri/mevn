@@ -29,56 +29,56 @@
 </template>
 
 <script>
-import axios from "axios";
-import Post from "../components/Post.vue";
-import NewPost from "../components/NewPost.vue";
+import axios from "axios"
+import Post from "../components/Post.vue"
+import NewPost from "../components/NewPost.vue"
 
 export default {
   components: { Post, NewPost },
-  data() {
+  data () {
     return {
       user: {
         username: "",
-        image: "",
+        image: ""
       },
-      posts: [],
-    };
+      posts: []
+    }
   },
   methods: {
-    request() {
+    request () {
       axios
         .get(`http://localhost:9000/api/get-user/${this.$route.params.id}`)
         .then((res) => {
-          this.user = res.data;
-          //let buf = Buffer.from(res.data.image.data);
-          //this.user.image = "data:image/png;base64," + buf.toString("base64");
+          this.user = res.data
+          // let buf = Buffer.from(res.data.image.data);
+          // this.user.image = "data:image/png;base64," + buf.toString("base64");
         })
         .catch((err) => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     },
-    redirect() {
-      this.$router.push("/editaccount");
+    redirect () {
+      this.$router.push("/editaccount")
     },
-    getAllPosts() {
+    getAllPosts () {
       axios
         .get(`http://localhost:9000/api/get-posts/${this.$route.params.id}`)
         .then((res) => {
-          this.posts = res.data;
-        });
-    },
+          this.posts = res.data
+        })
+    }
   },
-  created() {
-    this.request();
-    this.getAllPosts();
+  created () {
+    this.request()
+    this.getAllPosts()
   },
   watch: {
-    $route() {
-      this.request();
-      this.getAllPosts();
-    },
-  },
-};
+    $route () {
+      this.request()
+      this.getAllPosts()
+    }
+  }
+}
 </script>
 
 <style scoped>

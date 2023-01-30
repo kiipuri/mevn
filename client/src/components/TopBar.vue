@@ -7,12 +7,12 @@
 </template>
 
 <script>
-import Search from "./Search.vue";
-import ProfileButton from "./ProfileButton.vue";
+import Search from "./Search.vue"
+import ProfileButton from "./ProfileButton.vue"
 
 export default {
-  components: { Search, ProfileButton },
-};
+  components: { Search, ProfileButton }
+}
 </script>
 
 <style scoped>

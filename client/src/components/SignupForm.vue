@@ -1,28 +1,24 @@
 <template>
-  <form @submit.prevent="handleSubmit" class="component">
-    <input
+  <v-form @submit.prevent="handleSubmit" class="component" id="form">
+    <v-text-field
       required
-      class="form-control"
       v-model="user.username"
       placeholder="Type your username"
     />
-    <input
+    <v-text-field
       required
       type="email"
-      class="form-control mt-2"
       v-model="user.email"
       placeholder="Type your email"
     />
-    <input
+    <v-text-field
       required
-      class="form-control mt-2"
       v-model="user.password"
       type="password"
       placeholder="Type your password"
     />
-    <v-btn>Send</v-btn>
-    <button class="btn btn-outline-primary mt-2">Send</button>
-  </form>
+    <v-btn color="primary" type="submit" form="form">Send</v-btn>
+  </v-form>
 </template>
 
 <script>
