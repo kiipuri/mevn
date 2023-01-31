@@ -1,18 +1,28 @@
-<template>
-  <div id="search">
-    <v-text-field hide-details single-line label="Search users" @input="searchUsers" v-model="searchText">
-    </v-text-field>
-    <v-card class="mx-auto" max-width="300" v-if="foundUsers.length > 0">
-      <v-list>
+<template> 
+  <div class="search">
+    <v-menu>
+      <template #activator="{ props }">
+        <v-text-field
+          v-bind="props"
+          v-model="searchText"
+          hide-details
+          single-line
+          label="Search users"
+          @input="searchUsers"
+        />
+      </template>
+      <v-list v-if="foundUsers.length > 0">
         <v-list-item
           v-for="(user, i) in foundUsers"
           :key="i"
           :value="user"
-          router :to="'/users/' + user._id">
+          router
+          :to="'/users/' + user._id"
+        >
           {{ user.username }}
         </v-list-item>
       </v-list>
-    </v-card>
+    </v-menu>
   </div>
 </template>
 
@@ -28,6 +38,15 @@ export default {
       clicked: false,
     }
   },
+  computed: {
+    
+  },
+  watch: {
+    $route() {
+      this.searchText = ""
+      this.foundUsers = []
+    },
+  },
   methods: {
     searchUsers() {
       this.foundUsers = []
@@ -41,20 +60,11 @@ export default {
         })
     },
   },
-  watch: {
-    $route() {
-      this.searchText = ""
-      this.foundUsers = []
-    },
-  },
-  computed: {
-    
-  },
 }
 </script>
 
 <style scoped>
-#search {
+.search {
   margin: 1em auto;
   width: 50%;
 }
