@@ -7,6 +7,12 @@ postRoute.route("/sendpost").post((req, res) => {
   post.save().then(res.sendStatus(200))
 })
 
+postRoute.route("/get-post/:id").get((req, res) => {
+  PostModel.findById(req.params.id).exec((_, doc) => {
+    res.json(doc)
+  })
+})
+
 postRoute.route("/get-posts/:id").get((req, res) => {
   PostModel.find({ userID: req.params.id }).sort({ createdAt: "desc" }).exec((_, docs) => {
     res.json(docs)

@@ -6,6 +6,7 @@ import LoggedIn from "../components/LoggedIn.vue"
 import Profile from "../views/ProfilePage.vue"
 import Logout from "../views/LogoutPage.vue"
 import EditAccount from "../views/EditAccountPage.vue"
+import UserPostPage from "../views/UserPostPage.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +45,11 @@ const router = createRouter({
       path: "/editaccount",
       name: "editaccount",
       component: EditAccount
+    },
+    {
+      path: "/post/:id",
+      name: "userpost",
+      component: UserPostPage
     }
   ]
 })

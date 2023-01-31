@@ -50,6 +50,11 @@ export default {
   methods: {
     searchUsers() {
       this.foundUsers = []
+
+      if (this.searchText === "") {
+        return
+      }
+
       axios
         .post(`http://localhost:9000/api/find-users/${this.searchText}`)
         .then((res) => {

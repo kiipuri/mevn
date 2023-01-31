@@ -48,6 +48,7 @@ export default {
   },
   methods: {
     request () {
+      this.error = false
       axios
         .get(`http://localhost:9000/api/get-user/${this.$route.params.id}`)
         .then((res) => {

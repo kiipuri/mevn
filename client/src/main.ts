@@ -9,6 +9,7 @@ import * as components from "vuetify/components"
 import * as directives from "vuetify/directives"
 import { aliases, mdi } from "vuetify/iconsets/mdi"
 import Post from "./components/Post.vue"
+import { Icon } from "@iconify/vue"
 
 const vuetify = createVuetify({
   components,
@@ -30,5 +31,6 @@ app.use(router)
 app.use(Vue3Storage)
 app.use(vuetify)
 app.component("Post", Post)
+app.component("Icon", Icon)
 
 app.mount("#app")
