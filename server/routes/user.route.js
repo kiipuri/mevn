@@ -24,9 +24,14 @@ userRoute.route("/new-user").post((req, res, next) => {
 
 userRoute.route("/get-user/:id").get((req, res) => {
   UserModel.findById(req.params.id, "-password", (_, doc) => {
+    if (doc === undefined) {
+      return res.status(404).json({ error: "User not found" })
+    }
+
     if (doc.image !== undefined) {
       doc.image = "data:image/png;base64," + doc.image.toString("base64")
     }
+
     res.json(doc)
   })
 })

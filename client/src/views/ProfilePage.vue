@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="user.username != ''">
     <div class="component">
       <h1>
         <img v-bind:src="user.image" v-if="user.image" class="me-3" />{{
@@ -26,6 +26,7 @@
       @reloadPosts="getAllPosts()"
     />
   </div>
+  <h3 v-if="error" style="text-align: center;">User not found</h3>
 </template>
 
 <script>
@@ -41,7 +42,8 @@ export default {
         username: "",
         image: ""
       },
-      posts: []
+      posts: [],
+      error: false
     }
   },
   methods: {
@@ -54,7 +56,8 @@ export default {
           // this.user.image = "data:image/png;base64," + buf.toString("base64");
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err.response.data.error)
+          this.error = true
         })
     },
     redirect () {
