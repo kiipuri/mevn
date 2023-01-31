@@ -1,29 +1,41 @@
 <template>
-  <div class="dropdown">
-    <div v-if="logged">
-      <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-        {{ this.$storage.getStorageSync("username") }}
-      </button>
-      <ul class="dropdown-menu">
-        <li>
-          <router-link
-            :to="'/users/' + this.$storage.getStorageSync('userid')"
-            class="dropdown-item"
-            href="#"
-            >Profile</router-link
-          >
-        </li>
-        <li>
-          <a class="dropdown-item" href="#" @click="logout()">Log out</a>
-        </li>
-      </ul>
-    </div>
-    <div v-else>
-      <router-link to="/login">
-        <button class="btn btn-primary">Log in</button>
-      </router-link>
-    </div>
-  </div>
+  <v-menu v-if="logged">
+    <template #activator="{ props }">
+      <v-btn
+        class="dropdown"
+        rounded="pill"
+        v-bind="props"
+      >
+        {{ $storage.getStorageSync("username") }}
+        <template #append>
+          <v-icon icon="mdi-menu-down" />
+        </template>
+      </v-btn>
+    </template>
+    <v-list>
+      <v-list-item
+        router
+        :to="'/users/' + $storage.getStorageSync('userid')"
+      >
+        Profile
+      </v-list-item>
+      <v-list-item
+        router
+        :to="'/logout'"
+      >
+        Logout
+      </v-list-item>
+    </v-list>
+  </v-menu>
+  <v-btn
+    v-else
+    class="dropdown"
+    rounded="pill"
+    router
+    :to="'/login'"
+  >
+    Login
+  </v-btn>
 </template>
 
 <script>
@@ -31,18 +43,6 @@ export default {
   data() {
     return {
       logged: Boolean,
-    }
-  },
-  methods: {
-    logout() {
-      this.$router.push("/logout")
-    },
-  },
-  mounted() {
-    if (this.$storage.getStorageSync("username")) {
-      this.logged = true
-    } else {
-      this.logged = false
     }
   },
   watch: {
@@ -54,6 +54,13 @@ export default {
       }
     },
   },
+  mounted() {
+    if (this.$storage.getStorageSync("username")) {
+      this.logged = true
+    } else {
+      this.logged = false
+    }
+  },
 }
 </script>
 
@@ -62,5 +69,7 @@ export default {
   position: absolute;
   right: 2em;
   top: 2em;
+  left: initial;
+  font-size: initial;
 }
 </style>
