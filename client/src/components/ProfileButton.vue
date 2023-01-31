@@ -31,30 +31,30 @@ export default {
   data() {
     return {
       logged: Boolean,
-    };
+    }
   },
   methods: {
     logout() {
-      this.$router.push("/logout");
+      this.$router.push("/logout")
     },
   },
   mounted() {
     if (this.$storage.getStorageSync("username")) {
-      this.logged = true;
+      this.logged = true
     } else {
-      this.logged = false;
+      this.logged = false
     }
   },
   watch: {
     $route() {
-    if (this.$storage.getStorageSync("username")) {
-      this.logged = true;
-    } else {
-      this.logged = false;
-    }
+      if (this.$storage.getStorageSync("username")) {
+        this.logged = true
+      } else {
+        this.logged = false
+      }
     },
   },
-};
+}
 </script>
 
 <style scoped>
