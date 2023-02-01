@@ -1,4 +1,4 @@
-@import './base.css';
+/* @import './base.css';
 
 #app {
   max-width: 1280px;
@@ -32,4 +32,23 @@ a,
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
   }
+} */
+
+#app {
+    font-family: Roboto;
+}
+
+.actions {
+  line-height: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.user-link {
+  text-decoration: none;
+  color: black;
+  line-height: 1rem;
+}
+
+.user-link:hover {
+  text-decoration: underline;
 }
