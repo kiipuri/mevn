@@ -61,23 +61,26 @@ userRoute.route("/save-account").post((req, res, next) => {
   UserModel.findById(req.body._id, (err, doc) => {
     if (!doc) {
       return next(err)
-    } else {
-      req.body.image = req.body.image.replace("data:image/png;base64,", "")
-      doc.image = new Buffer.From(req.body.image, "base64")
-      // doc.image = "data:image/png;base64," + doc.image.toString('base64');
-      doc.username = req.body.username
-      doc.email = req.body.email
-      doc.bio = req.body.bio
-      doc.password = req.body.password
-      doc.save((err) => {
-        if (err) {
-          console.log(err)
-          res.sendStatus(500)
-        } else {
-          res.sendStatus(200)
-        }
-      })
     }
+
+    if (req.body.image !== undefined) {
+      req.body.image = req.body.image.replace("data:image/png;base64,", "")
+      doc.image = new Buffer.from(req.body.image, "base64")
+    }
+
+    // doc.image = "data:image/png;base64," + doc.image.toString('base64');
+    doc.username = req.body.username
+    doc.email = req.body.email
+    doc.bio = req.body.bio
+    doc.password = req.body.password
+    doc.save((err) => {
+      if (err) {
+        console.log(err)
+        res.sendStatus(500)
+      } else {
+        res.sendStatus(200)
+      }
+    })
   })
 })
 
