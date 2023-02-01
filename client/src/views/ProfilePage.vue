@@ -1,41 +1,64 @@
 <template>
-  <div v-if="user.username != ''">
-    <div class="component">
-      <h1>
-        <img v-bind:src="user.image" v-if="user.image" class="me-3" />{{
-          user.username
-        }}
-      </h1>
-      <p>{{ user.bio }}</p>
-      <div v-if="this.$storage.getStorageSync('userid') == this.$route.params.id">
-        <v-btn color="primary" @click="redirect()">
-          Edit profile
-        </v-btn>
-      </div>
-    </div>
-    <NewPost
-      class="mt-2"
-      v-if="this.$storage.getStorageSync('userid') == this.$route.params.id"
-      @reloadPosts="getAllPosts()"
-    />
-    <h2 class="mt-4 mb-2">Posts</h2>
-    <Post
+  <template v-if="user.username != ''">
+    <v-card>
+      <v-card-title class="text-h4 my-2">
+        <img
+          v-if="user.image"
+          :src="user.image"
+          class="me-3"
+        >{{ user.username }}
+        <template v-if="$storage.getStorageSync('userid') == $route.params.id">
+          <v-btn
+            variant="outlined"
+            rounded="pill"
+            style="right: 0; position: absolute; margin-right: 1rem;"
+            @click="redirect()"
+          >
+            Edit profile
+          </v-btn>
+        </template>
+      </v-card-title>
+      <v-card-text
+        class="text-body-1"
+      >
+        {{ user.bio }}
+      </v-card-text>
+      <v-card-subtitle class="mb-2">
+        Joined {{ formatDate(user.createdAt) }}
+      </v-card-subtitle>
+    </v-card>
+    <!-- <NewPost -->
+    <!--   v-if="$storage.getStorageSync('userid') == $route.params.id" -->
+    <!--   class="mt-2" -->
+    <!--   @reload-posts="getAllPosts()" -->
+    <!-- /> -->
+    <!-- <h2 class="mt-4 mb-2"> -->
+    <!--   Posts -->
+    <!-- </h2> -->
+    <v-divider class="my-4" />
+    <UserPost
       v-for="post in posts"
       :key="post._id"
       :post="post"
-      @reloadPosts="getAllPosts()"
+      @reload-posts="getAllPosts()"
     />
-  </div>
-  <h3 v-if="error" style="text-align: center;">User not found</h3>
+  </template>
+  <h3
+    v-if="error"
+    style="text-align: center;"
+  >
+    User not found
+  </h3>
 </template>
 
 <script>
 import axios from "axios"
-import Post from "../components/Post.vue"
+import UserPost from "../components/UserPost.vue"
 import NewPost from "../components/NewPost.vue"
+import { formatDate } from "../utils/utils.ts"
 
 export default {
-  components: { Post, NewPost },
+  components: { UserPost, NewPost },
   data () {
     return {
       user: {
@@ -46,7 +69,18 @@ export default {
       error: false
     }
   },
+  watch: {
+    $route () {
+      this.request()
+      this.getAllPosts()
+    }
+  },
+  created () {
+    this.request()
+    this.getAllPosts()
+  },
   methods: {
+    formatDate,
     request () {
       this.error = false
       axios
@@ -70,16 +104,6 @@ export default {
         .then((res) => {
           this.posts = res.data
         })
-    }
-  },
-  created () {
-    this.request()
-    this.getAllPosts()
-  },
-  watch: {
-    $route () {
-      this.request()
-      this.getAllPosts()
     }
   }
 }

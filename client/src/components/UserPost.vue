@@ -1,13 +1,9 @@
 <template>
-  <router-link
-    :to="'/post/' + post._id"
-    style="position: absolute; height: 100%; width: 100%;"
-  />
   <v-card
     class="my-3"
   >
     <v-card-title
-      class="text-subtitle-1 font-weight-bold"
+      class="text-subtitle-1 font-weight-bold user-link"
     >
       <router-link
         :to="'/users/' + post.userID"
@@ -16,15 +12,51 @@
         {{ user.username }}
       </router-link>
     </v-card-title>
-    <v-card-text class="text-subtitle-1 post-text">
+    <v-card-text class="text-subtitle-1 post-text mb-n2">
       {{ post.post }}
     </v-card-text>
     <v-card-subtitle class="text-subtitle-2 font-weight-bold actions">
-      <Icon
-        icon="heroicons:chat-bubble-oval-left-20-solid"
-        style="vertical-align: -2px;"
-      />
+      <v-btn
+        icon="system-uicons:speech-bubble"
+        variant="plain"
+        size="x-small"
+        style="margin-bottom: 2px;"
+      >
+        <Icon
+          icon="system-uicons:speech-bubble"
+          width="24"
+          height="24"
+        />
+      </v-btn>
       {{ post.comments.length }}
+      <v-btn
+        icon="mdi-cached"
+        class="ml-2"
+        variant="plain"
+        size="x-small"
+        style="margin-bottom: 2px;"
+      >
+        <Icon
+          icon="entypo:retweet"
+          width="24"
+          height="24"
+        />
+      </v-btn>
+      250
+      <v-btn
+        icon="mdi-thumb-up"
+        class="ml-2"
+        variant="plain"
+        size="x-small"
+        style="margin-bottom: 2px;"
+      >
+        <Icon
+          icon="mdi:cards-heart-outline"
+          width="24"
+          height="24"
+        />
+      </v-btn>
+      10
     </v-card-subtitle>
   </v-card>
 </template>
@@ -49,23 +81,6 @@ export default {
     this.getUser()
   },
   methods: {
-    openPost() {
-      console.log("jojojoj")
-    },
-    // getPost() {
-    //   axios.get(`http://localhost:9000/api/get-post/${this.$route.params.id}`).then((res) => {
-    //     this.post = res.data
-    //     this.getUser()
-    //
-    //     this.dateFormatted = new Date(this.post.createdAt).toLocaleDateString(
-    //       "fi-FI",
-    //       this.dateOptions
-    //     )
-    //   })
-    //     .catch((err) => {
-    //       console.log(err)
-    //     })
-    // },
     getUser() {
       axios.get(`http://localhost:9000/api/get-user/${this.post.userID}`).then((res) => {
         this.user = res.data
@@ -87,15 +102,5 @@ export default {
 
 .user-link:hover {
   text-decoration: underline;
-}
-
-.post-text {
-  line-height: 1rem;
-  padding: 0.5rem 1rem;
-}
-
-.actions {
-  line-height: 1rem;
-  margin-bottom: 0.5rem;
 }
 </style>

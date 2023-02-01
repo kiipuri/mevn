@@ -1,13 +1,20 @@
 <template>
   <v-card class="my-6">
-    <v-card-title class="text-subtitle-1 font-weight-bold">
-      {{ user.username }}
+    <v-card-title
+      class="text-subtitle-1 font-weight-bold"
+    >
+      <router-link
+        :to="'/users/' + user._id"
+        class="user-link"
+      >
+        {{ user.username }}
+      </router-link>
     </v-card-title>
     <v-card-text class="text-h5">
       {{ post.post }}
     </v-card-text>
-    <v-card-subtitle>{{ dateFormatted }}</v-card-subtitle>
-    <v-card-subtitle class="text-subtitle-2 font-weight-bold">
+    <v-card-subtitle>{{ formatDateTime(post.createdAt) }}</v-card-subtitle>
+    <v-card-subtitle class="text-subtitle-2 font-weight-bold actions">
       <Icon
         icon="heroicons:chat-bubble-oval-left-20-solid"
         style="vertical-align: -2px;"
@@ -26,6 +33,7 @@
 import axios from "axios"
 import UserPost from "../components/UserPost.vue"
 import { Icon } from "@iconify/vue"
+import { formatDateTime } from "../utils/utils.ts"
 
 export default {
   name: "UserPostView",
@@ -35,14 +43,6 @@ export default {
       post: Object,
       user: Object,
       replies: [],
-      dateFormatted: String,
-      dateOptions: {
-        year: "numeric",
-        month: "numeric",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-      },
     }
   },
   watch: {
@@ -54,16 +54,12 @@ export default {
     this.getPost()
   },
   methods: {
+    formatDateTime,
     getPost() {
       axios.get(`http://localhost:9000/api/get-post/${this.$route.params.id}`).then((res) => {
         this.post = res.data
         this.getUser()
         this.getReplies()
-
-        this.dateFormatted = new Date(this.post.createdAt).toLocaleDateString(
-          "fi-FI",
-          this.dateOptions
-        )
       })
         .catch((err) => {
           console.log(err)
