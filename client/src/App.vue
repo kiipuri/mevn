@@ -1,16 +1,18 @@
 <template>
   <div id="container">
     <TopBar />
-    <router-view></router-view>
+    <NewPostModal />
+    <router-view />
   </div>
 </template>
 
 <script>
 import TopBar from "./components/TopBar.vue"
+import NewPostModal from "./components/NewPostModal.vue"
 
 export default {
   name: "App",
-  components: { TopBar },
+  components: { TopBar, NewPostModal },
   created () {
     document.title = "My Cool Website"
     this.$storage.setStorageSync("test-key", "testdata")
