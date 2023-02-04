@@ -2,6 +2,7 @@
 const cors = require("cors")
 const express = require("express")
 const mongoose = require("mongoose")
+const multer = require("multer")
 
 const app = express()
 
@@ -37,6 +38,27 @@ app.use("/api", userAPI)
 
 const postAPI = require("./routes/post.route")
 app.use("/api", postAPI)
+
+const likeAPI = require("./routes/like.route")
+app.use("/api", likeAPI)
+
+const imageAPI = require("./routes/image.route")
+app.use("/api", imageAPI)
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./images/")
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname)
+  }
+})
+
+const upload = multer({storage: storage})
+
+app.post("/api/send-image", upload.single("image"), (req, res) => {
+  res.sendStatus(200)
+})
 
 // Listening to port
 app.listen(port)

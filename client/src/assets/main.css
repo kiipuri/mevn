@@ -52,3 +52,7 @@ a,
 .user-link:hover {
   text-decoration: underline;
 }
+
+.liked {
+  color: red;
+}
