@@ -2,11 +2,13 @@
   <template v-if="user.username != ''">
     <v-card>
       <v-card-title class="text-h4 my-2">
-        <img
-          v-if="user.image"
-          :src="user.image"
-          class="me-3"
-        >{{ user.username }}
+        <v-avatar>
+          <v-img
+            :src="'http://localhost:9000/api/get-image/' + user.image"
+            alt="Avatar"
+          />
+        </v-avatar>
+        {{ user.username }}
         <template v-if="$storage.getStorageSync('userid') == $route.params.id">
           <v-btn
             variant="outlined"
@@ -58,7 +60,7 @@ import NewPost from "../components/NewPost.vue"
 import { formatDate } from "../utils/utils.ts"
 
 export default {
-  components: { UserPost, NewPost },
+  components: { UserPost },
   data () {
     return {
       user: {
@@ -87,8 +89,6 @@ export default {
         .get(`http://localhost:9000/api/get-user/${this.$route.params.id}`)
         .then((res) => {
           this.user = res.data
-          // let buf = Buffer.from(res.data.image.data);
-          // this.user.image = "data:image/png;base64," + buf.toString("base64");
         })
         .catch((err) => {
           console.log(err.response.data.error)

@@ -6,7 +6,10 @@ const userSchema = new Schema({
   email: String,
   password: String,
   bio: String,
-  image: Schema.Types.Mixed
+  image: {
+    type: String,
+    default: "default.png"
+  }
 }, {
   timestamps: true
 })

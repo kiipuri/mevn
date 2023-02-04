@@ -28,9 +28,9 @@ userRoute.route("/get-user/:id").get((req, res) => {
       return res.status(404).json({ error: "User not found" })
     }
 
-    if (doc.image !== undefined) {
-      doc.image = "data:image/png;base64," + doc.image.toString("base64")
-    }
+    // if (doc.image !== undefined) {
+    //   doc.image = "data:image/png;base64," + doc.image.toString("base64")
+    // }
 
     res.json(doc)
   })

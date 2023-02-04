@@ -46,10 +46,26 @@ postRoute.route("/get-replies/:id").get((req, res) => {
 })
 
 postRoute.route("/delete-post/:id").post((req) => {
-  console.log(req.params.id)
   PostModel.findByIdAndDelete(req.params.id, () => {
 
   })
 })
+
+// postRoute.route("/like-post/:id").post((req, res) => {
+//   PostModel.findById(req.params.id, (_, doc) => {
+//     const index = doc.likes.indexOf(req.body.userID)
+//     let liked = false
+//     if(index > -1) {
+//       doc.likes.splice(index, 1)
+//     } else {
+//       doc.likes.push(req.body.userID)
+//       liked = true
+//     }
+//
+//     doc.save(() => {
+//       res.json({ liked: liked })
+//     })
+//   })
+// })
 
 module.exports = postRoute
