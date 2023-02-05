@@ -40,27 +40,27 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
-      logged: Boolean,
+      logged: Boolean
     }
   },
   watch: {
-    $route() {
+    $route () {
       if (this.$storage.getStorageSync("username")) {
         this.logged = true
       } else {
         this.logged = false
       }
-    },
+    }
   },
-  mounted() {
+  mounted () {
     if (this.$storage.getStorageSync("username")) {
       this.logged = true
     } else {
       this.logged = false
     }
-  },
+  }
 }
 </script>
 

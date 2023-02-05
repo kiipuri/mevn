@@ -13,30 +13,20 @@
           <v-btn
             variant="outlined"
             rounded="pill"
-            style="right: 0; position: absolute; margin-right: 1rem;"
+            style="right: 0; position: absolute; margin-right: 1rem"
             @click="redirect()"
           >
             Edit profile
           </v-btn>
         </template>
       </v-card-title>
-      <v-card-text
-        class="text-body-1"
-      >
+      <v-card-text class="text-body-1">
         {{ user.bio }}
       </v-card-text>
       <v-card-subtitle class="mb-2">
         Joined {{ formatDate(user.createdAt) }}
       </v-card-subtitle>
     </v-card>
-    <!-- <NewPost -->
-    <!--   v-if="$storage.getStorageSync('userid') == $route.params.id" -->
-    <!--   class="mt-2" -->
-    <!--   @reload-posts="getAllPosts()" -->
-    <!-- /> -->
-    <!-- <h2 class="mt-4 mb-2"> -->
-    <!--   Posts -->
-    <!-- </h2> -->
     <v-divider class="my-4" />
     <UserPost
       v-for="post in posts"
@@ -45,45 +35,39 @@
       @reload-posts="getAllPosts()"
     />
   </template>
-  <h3
-    v-if="error"
-    style="text-align: center;"
-  >
-    User not found
-  </h3>
+  <h3 v-if="error" style="text-align: center">User not found</h3>
 </template>
 
 <script>
 import axios from "axios"
 import UserPost from "../components/UserPost.vue"
-import NewPost from "../components/NewPost.vue"
 import { formatDate } from "../utils/utils.ts"
 
 export default {
   components: { UserPost },
-  data () {
+  data() {
     return {
       user: {
         username: "",
-        image: ""
+        image: "",
       },
       posts: [],
-      error: false
+      error: false,
     }
   },
   watch: {
-    $route () {
+    $route() {
       this.request()
       this.getAllPosts()
-    }
+    },
   },
-  created () {
+  created() {
     this.request()
     this.getAllPosts()
   },
   methods: {
     formatDate,
-    request () {
+    request() {
       this.error = false
       axios
         .get(`http://localhost:9000/api/get-user/${this.$route.params.id}`)
@@ -95,17 +79,20 @@ export default {
           this.error = true
         })
     },
-    redirect () {
+    dothing() {
+      console.log("asfd")
+    },
+    redirect() {
       this.$router.push("/editaccount")
     },
-    getAllPosts () {
+    getAllPosts() {
       axios
         .get(`http://localhost:9000/api/get-posts/${this.$route.params.id}`)
         .then((res) => {
           this.posts = res.data
         })
-    }
-  }
+    },
+  },
 }
 </script>
 

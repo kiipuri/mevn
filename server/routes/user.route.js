@@ -1,7 +1,7 @@
 import express from "express"
-const userRoute = express.Router()
 
 import UserModel from "../models/User.js"
+const userRoute = express.Router()
 userRoute.route("/").get((_, res, next) => {
   UserModel.find((err, data) => {
     if (err) {
@@ -33,9 +33,12 @@ userRoute.route("/get-user/:id").get((req, res) => {
 })
 
 userRoute.route("/find-users/:username").post((req, res) => {
-  UserModel.find({ username: { $regex: ".*" + req.params.username + ".*" } }, (_, docs) => {
-    res.json(docs)
-  })
+  UserModel.find(
+    { username: { $regex: ".*" + req.params.username + ".*" } },
+    (_, docs) => {
+      res.json(docs)
+    }
+  )
 })
 
 userRoute.route("/login").post((req, res, next) => {

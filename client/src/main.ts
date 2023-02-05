@@ -11,6 +11,8 @@ import { aliases, mdi } from "vuetify/iconsets/mdi"
 import Post from "./components/Post.vue"
 import { Icon } from "@iconify/vue"
 
+import "./assets/main.css"
+
 const vuetify = createVuetify({
   components,
   directives,
@@ -22,8 +24,6 @@ const vuetify = createVuetify({
     },
   },
 })
-
-import "./assets/main.css"
 
 const app = createApp(App)
 

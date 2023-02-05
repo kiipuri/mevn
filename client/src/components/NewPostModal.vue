@@ -27,25 +27,25 @@
 import axios from "axios"
 
 export default {
-  data() {
+  data () {
     return {
       dialog: false,
       postText: ""
     }
   },
   methods: {
-    send() {
+    send () {
       axios
         .post("http://localhost:9000/api/sendpost", {
           post: this.postText,
-          userID: this.$storage.getStorageSync("userid"),
+          userID: this.$storage.getStorageSync("userid")
         })
         .then(() => {
           this.$emit("reloadPosts")
           this.postText = ""
           this.dialog = false
         })
-    },
+    }
   }
 }
 </script>

@@ -1,4 +1,4 @@
-export const formatDateTime = function(date: string) {
+export const formatDateTime = function (date: string) {
   const dateOptions: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "numeric",
@@ -7,19 +7,15 @@ export const formatDateTime = function(date: string) {
     minute: "numeric",
   }
 
-  return new Date(date).toLocaleDateString(
-    "fi-FI", dateOptions
-  )
+  return new Date(date).toLocaleDateString("fi-FI", dateOptions)
 }
 
-export const formatDate = function(date: string) {
+export const formatDate = function (date: string) {
   const dateOptions: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "numeric",
     day: "numeric",
   }
 
-  return new Date(date).toLocaleDateString(
-    "fi-FI", dateOptions
-  )
+  return new Date(date).toLocaleDateString("fi-FI", dateOptions)
 }

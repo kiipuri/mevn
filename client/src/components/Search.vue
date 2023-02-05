@@ -1,4 +1,4 @@
-<template> 
+<template>
   <div class="search">
     <v-menu>
       <template #activator="{ props }">
@@ -30,25 +30,25 @@
 import axios from "axios"
 
 export default {
-  data() {
+  data () {
     return {
       searchText: "",
       foundUsers: [],
       hidden: true,
-      clicked: false,
+      clicked: false
     }
   },
   computed: {
-    
+
   },
   watch: {
-    $route() {
+    $route () {
       this.searchText = ""
       this.foundUsers = []
-    },
+    }
   },
   methods: {
-    searchUsers() {
+    searchUsers () {
       this.foundUsers = []
 
       if (this.searchText === "") {
@@ -63,8 +63,8 @@ export default {
         .catch((err) => {
           console.log(err)
         })
-    },
-  },
+    }
+  }
 }
 </script>
 

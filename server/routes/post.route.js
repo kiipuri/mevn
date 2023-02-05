@@ -1,7 +1,7 @@
 import express from "express"
-const postRoute = express.Router()
 
 import PostModel from "../models/Post.js"
+const postRoute = express.Router()
 postRoute.route("/sendpost").post((req, res) => {
   const post = new PostModel(req.body)
   post.save().then(res.sendStatus(200))
@@ -14,15 +14,19 @@ postRoute.route("/get-post/:id").get((req, res) => {
 })
 
 postRoute.route("/get-posts/:id").get((req, res) => {
-  PostModel.find({ userID: req.params.id }).sort({ createdAt: "desc" }).exec((_, docs) => {
-    res.json(docs)
-  })
+  PostModel.find({ userID: req.params.id })
+    .sort({ createdAt: "desc" })
+    .exec((_, docs) => {
+      res.json(docs)
+    })
 })
 
 postRoute.route("/get-all-posts").get((_, res) => {
-  PostModel.find({}).sort({ createdAt: "desc" }).exec((_, docs) => {
-    res.json(docs)
-  })
+  PostModel.find({})
+    .sort({ createdAt: "desc" })
+    .exec((_, docs) => {
+      res.json(docs)
+    })
 })
 
 postRoute.route("/send-reply").post((req, res) => {
@@ -46,9 +50,7 @@ postRoute.route("/get-replies/:id").get((req, res) => {
 })
 
 postRoute.route("/delete-post/:id").post((req) => {
-  PostModel.findByIdAndDelete(req.params.id, () => {
-
-  })
+  PostModel.findByIdAndDelete(req.params.id, () => {})
 })
 
 export default postRoute

@@ -1,6 +1,11 @@
 <template>
   <div>
-    <router-link id="#home-link" to="/">Home</router-link>
+    <router-link
+      id="#home-link"
+      to="/"
+    >
+      Home
+    </router-link>
     <Search />
     <ProfileButton />
   </div>

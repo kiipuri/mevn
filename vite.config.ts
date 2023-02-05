@@ -13,6 +13,6 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./client/src", import.meta.url)),
-    }
-  }
+    },
+  },
 })

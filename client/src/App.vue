@@ -13,10 +13,9 @@ import NewPostModal from "./components/NewPostModal.vue"
 export default {
   name: "App",
   components: { TopBar, NewPostModal },
-  created () {
+  created() {
     document.title = "My Cool Website"
-    this.$storage.setStorageSync("test-key", "testdata")
-  }
+  },
 }
 </script>
 

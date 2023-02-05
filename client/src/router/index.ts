@@ -14,44 +14,44 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component: Home
+      component: Home,
     },
     {
       path: "/login",
       name: "login",
-      component: Login
+      component: Login,
     },
     {
       path: "/signup",
       name: "signup",
-      component: SignUp
+      component: SignUp,
     },
     {
       path: "/logged",
       name: "logged",
-      component: LoggedIn
+      component: LoggedIn,
     },
     {
       path: "/users/:id",
       name: "profile",
-      component: Profile
+      component: Profile,
     },
     {
       path: "/logout",
       name: "logout",
-      component: Logout
+      component: Logout,
     },
     {
       path: "/editaccount",
       name: "editaccount",
-      component: EditAccount
+      component: EditAccount,
     },
     {
       path: "/post/:id",
       name: "userpost",
-      component: UserPostPage
-    }
-  ]
+      component: UserPostPage,
+    },
+  ],
 })
 
 export default router
