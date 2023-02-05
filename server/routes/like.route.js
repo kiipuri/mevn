@@ -1,7 +1,7 @@
-const express = require("express")
+import express from "express"
 const likeRoute = express.Router()
 
-const LikeModel = require("../models/Like")
+import LikeModel from "../models/Like.js"
 likeRoute.route("/like-post").post((req, res) => {
   LikeModel.findOne(req.body).exec((_, doc) => {
     if(doc !== null) {
@@ -26,4 +26,4 @@ likeRoute.route("/get-post-likes/:id").get((req, res) => {
   })
 })
 
-module.exports = likeRoute
+export default likeRoute

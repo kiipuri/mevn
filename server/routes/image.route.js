@@ -1,9 +1,9 @@
-const express = require("express")
+import express from "express"
+import path from "path"
 const imageRoute = express.Router()
-const path = require("path")
 
 imageRoute.route("/get-image/:name").get((req, res) => {
-  res.sendFile(path.resolve(__dirname + `/../images/${req.params.name}`))
+  res.sendFile(path.resolve(`images/${req.params.name}`))
 })
 
-module.exports = imageRoute
+export default imageRoute

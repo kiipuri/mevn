@@ -1,7 +1,7 @@
-const express = require("express")
+import express from "express"
 const userRoute = express.Router()
 
-const UserModel = require("../models/User")
+import UserModel from "../models/User.js"
 userRoute.route("/").get((_, res, next) => {
   UserModel.find((err, data) => {
     if (err) {
@@ -28,21 +28,12 @@ userRoute.route("/get-user/:id").get((req, res) => {
       return res.status(404).json({ error: "User not found" })
     }
 
-    // if (doc.image !== undefined) {
-    //   doc.image = "data:image/png;base64," + doc.image.toString("base64")
-    // }
-
     res.json(doc)
   })
 })
 
 userRoute.route("/find-users/:username").post((req, res) => {
   UserModel.find({ username: { $regex: ".*" + req.params.username + ".*" } }, (_, docs) => {
-    for (const doc in docs) {
-      if (doc.image !== undefined) {
-        doc.image = "data:image/png;base64," + doc.image.toString("base64")
-      }
-    }
     res.json(docs)
   })
 })
@@ -63,12 +54,6 @@ userRoute.route("/save-account").post((req, res, next) => {
       return next(err)
     }
 
-    if (req.body.image !== undefined) {
-      req.body.image = req.body.image.replace("data:image/png;base64,", "")
-      doc.image = new Buffer.from(req.body.image, "base64")
-    }
-
-    // doc.image = "data:image/png;base64," + doc.image.toString('base64');
     doc.username = req.body.username
     doc.email = req.body.email
     doc.bio = req.body.bio
@@ -84,4 +69,4 @@ userRoute.route("/save-account").post((req, res, next) => {
   })
 })
 
-module.exports = userRoute
+export default userRoute

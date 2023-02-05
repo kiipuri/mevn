@@ -1,7 +1,7 @@
-const express = require("express")
+import express from "express"
 const postRoute = express.Router()
 
-const PostModel = require("../models/Post")
+import PostModel from "../models/Post.js"
 postRoute.route("/sendpost").post((req, res) => {
   const post = new PostModel(req.body)
   post.save().then(res.sendStatus(200))
@@ -51,21 +51,4 @@ postRoute.route("/delete-post/:id").post((req) => {
   })
 })
 
-// postRoute.route("/like-post/:id").post((req, res) => {
-//   PostModel.findById(req.params.id, (_, doc) => {
-//     const index = doc.likes.indexOf(req.body.userID)
-//     let liked = false
-//     if(index > -1) {
-//       doc.likes.splice(index, 1)
-//     } else {
-//       doc.likes.push(req.body.userID)
-//       liked = true
-//     }
-//
-//     doc.save(() => {
-//       res.json({ liked: liked })
-//     })
-//   })
-// })
-
-module.exports = postRoute
+export default postRoute

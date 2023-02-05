@@ -1,20 +1,21 @@
 // Importing required modules
-const cors = require("cors")
-const express = require("express")
-const mongoose = require("mongoose")
-const multer = require("multer")
+import cors from "cors"
+import express, { json } from "express"
+import { connect } from "mongoose"
+import multer, { diskStorage } from "multer"
+import dotenv from "dotenv"
 
 const app = express()
 
 const uri = "mongodb://127.0.0.1/epic"
-mongoose.connect(uri)
+connect(uri)
   .then(() => {
     console.log("Mongodb connected")
   })
   .catch(err => console.log(err))
 
 // parse env variables
-require("dotenv").config()
+dotenv.config()
 
 // Configuring port
 const port = process.env.PORT || 9000
@@ -23,40 +24,40 @@ const port = process.env.PORT || 9000
 app.use(cors({
   origin: "*"
 }))
-app.use(express.json())
+app.use(json())
 
 app.set("view engine", "html")
 
 // Static folder
-app.use(express.static(__dirname + "/views/"))
+app.use(express.static(import.meta.url + "/views/"))
 
 // Defining route middleware
 // app.use('/api', require('./routes/api'));
 
-const userAPI = require("./routes/user.route")
+import userAPI from "./routes/user.route.js"
 app.use("/api", userAPI)
 
-const postAPI = require("./routes/post.route")
+import postAPI from "./routes/post.route.js"
 app.use("/api", postAPI)
 
-const likeAPI = require("./routes/like.route")
+import likeAPI from "./routes/like.route.js"
 app.use("/api", likeAPI)
 
-const imageAPI = require("./routes/image.route")
+import imageAPI from "./routes/image.route.js"
 app.use("/api", imageAPI)
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
+const storage = diskStorage({
+  destination: (_req, _file, cb) => {
     cb(null, "./images/")
   },
-  filename: (req, file, cb) => {
+  filename: (_req, file, cb) => {
     cb(null, Date.now() + "-" + file.originalname)
   }
 })
 
 const upload = multer({storage: storage})
 
-app.post("/api/send-image", upload.single("image"), (req, res) => {
+app.post("/api/send-image", upload.single("image"), (_req, res) => {
   res.sendStatus(200)
 })
 
@@ -64,4 +65,4 @@ app.post("/api/send-image", upload.single("image"), (req, res) => {
 app.listen(port)
 console.log(`Listening On http://localhost:${port}/api`)
 
-module.exports = app
+export default app

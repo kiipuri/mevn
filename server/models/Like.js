@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+import mongoose from "mongoose"
 const Schema = mongoose.Schema
 
 const likeSchema = new Schema({
@@ -9,5 +9,5 @@ const likeSchema = new Schema({
 })
 
 const Like = mongoose.model("Like", likeSchema)
-module.exports = Like
+export default Like
 
