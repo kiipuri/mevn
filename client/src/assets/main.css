@@ -56,3 +56,19 @@ a,
 .liked {
   color: red;
 }
+
+.prel {
+  position: relative;
+}
+
+.dinl {
+  display: inline;
+}
+
+.pointer-none {
+  pointer-events: none;
+}
+
+.pointer-all {
+  pointer-events: all;
+}
