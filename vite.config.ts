@@ -9,7 +9,7 @@ import path from "path"
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(), vueJsx()],
-  root: path.resolve(__dirname, "./"),
+  root: path.resolve(__dirname, "./client"),
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./client/src", import.meta.url)),
